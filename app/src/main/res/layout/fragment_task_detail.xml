@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_task_detail.xml
+    Pantalla de creación / edición de tarea.
+    Contiene:
+    - TextInputLayout para título (obligatorio)
+    - TextInputLayout para descripción (opcional)
+    - Spinner de prioridad (Baja / Media / Alta)
+    - Switch para activar/desactivar recordatorio
+    - Sección de hora del recordatorio (se muestra solo si el switch está ON)
+    - Botón guardar
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".ui.task.TaskDetailFragment">
+
+        <!-- Título de sección -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_title_section"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Campo: Título de la tarea -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTitle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_title_hint"
+            app:startIconDrawable="@drawable/ic_task"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLines="2"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo: Descripción (opcional) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/task_description_hint"
+            app:startIconDrawable="@drawable/ic_description"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:minLines="3"
+                android:maxLines="5"
+                android:gravity="top" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo: Prioridad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priority_label"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:layout_marginBottom="6dp" />
+
+        <Spinner
+            android:id="@+id/spinnerPriority"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_spinner"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOutline"
+            android:alpha="0.3"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Switch: Recordatorio -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchReminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reminder_label"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Sección de hora del recordatorio (visible solo si switch ON) -->
+        <LinearLayout
+            android:id="@+id/layoutReminderTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutline"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvSelectedTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_time_selected"
+                        android:textSize="15sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPickTime"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pick_time"
+                app:icon="@drawable/ic_schedule" />
+
+        </LinearLayout>
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Botón Guardar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/save_task"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_save"
+            app:iconGravity="textStart"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+
+</ScrollView>

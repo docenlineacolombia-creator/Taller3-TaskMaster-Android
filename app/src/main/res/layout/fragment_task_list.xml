@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    fragment_task_list.xml
+    Pantalla principal: lista de tareas.
+    Contiene:
+    - Cabecera con saludo y contador de tareas
+    - Botón de configuración (engranaje)
+    - TabLayout para filtrar: Todas | Pendientes | Completadas
+    - RecyclerView para mostrar las tareas
+    - Estado vacío (layoutEmpty) cuando no hay tareas
+    - FloatingActionButton para agregar nueva tarea
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    tools:context=".ui.task.TaskListFragment">
+
+    <!-- Cabecera fija: saludo + botón settings -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/greeting_default"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="¡Hola, Estudiante!" />
+
+            <TextView
+                android:id="@+id/tvTaskCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_count_zero"
+                android:textSize="13sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginTop="2dp"
+                tools:text="3 tareas" />
+
+        </LinearLayout>
+
+        <!-- Botón de configuración -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettings"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            app:icon="@drawable/ic_settings"
+            app:iconGravity="textStart" />
+
+    </LinearLayout>
+
+    <!-- TabLayout para filtros -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabTextAppearance="@style/TextAppearance.MaterialComponents.Button">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_all" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_pending" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_completed" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- RecyclerView de tareas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTasks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="112dp"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="88dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_task" />
+
+    <!-- Estado vacío -->
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="112dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_empty_tasks"
+            android:contentDescription="@string/empty_list_desc"
+            android:alpha="0.4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_list_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_list_subtitle"
+            android:textSize="14sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+    <!-- FAB: agregar nueva tarea -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="@string/add_task"
+        app:icon="@drawable/ic_add"
+        app:layout_anchorGravity="bottom|right|end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

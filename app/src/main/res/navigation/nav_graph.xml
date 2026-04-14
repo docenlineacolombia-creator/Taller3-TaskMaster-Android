@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    nav_graph.xml
+    Grafo de navegación del Navigation Component.
+
+    Destinos:
+    - taskListFragment: destino inicial (lista de tareas)
+    - taskDetailFragment: detalle / creación / edición de tarea
+      * Recibe argumento taskId (Int, -1 = nueva tarea)
+    - settingsFragment: configuración de la app
+
+    Acciones:
+    - actionTaskListFragmentToTaskDetailFragment
+    - actionTaskListFragmentToSettingsFragment
+-->
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/taskListFragment">
+
+    <!-- Fragmento: Lista de tareas (destino inicial) -->
+    <fragment
+        android:id="@+id/taskListFragment"
+        android:name="com.taskmaster.taller3.ui.task.TaskListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_task_list">
+
+        <!-- Acción: ir a detalle/creación de tarea -->
+        <action
+            android:id="@+id/action_taskListFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!-- Acción: ir a configuración -->
+        <action
+            android:id="@+id/action_taskListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <!-- Fragmento: Detalle / creación de tarea -->
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.taskmaster.taller3.ui.task.TaskDetailFragment"
+        android:label="@string/detail_label"
+        tools:layout="@layout/fragment_task_detail">
+
+        <!--
+            Argumento: taskId
+            -1 = nueva tarea
+            >0 = editar tarea existente (se pasa el id)
+        -->
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+
+    </fragment>
+
+    <!-- Fragmento: Configuración -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.taskmaster.taller3.ui.task.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

@@ -1,0 +1,50 @@
+<resources>
+    <!-- Nombre de la aplicación -->
+    <string name="app_name">TaskMaster</string>
+
+    <!-- Fragmento Lista -->
+    <string name="greeting_default">¡Hola!</string>
+    <string name="task_count_zero">0 tareas</string>
+    <string name="filter_all">Todas</string>
+    <string name="filter_pending">Pendientes</string>
+    <string name="filter_completed">Completadas</string>
+    <string name="add_task">Nueva tarea</string>
+    <string name="settings">Ajustes</string>
+    <string name="empty_list_title">Sin tareas aún</string>
+    <string name="empty_list_subtitle">Toca el botón + para agregar tu primera tarea</string>
+    <string name="empty_list_desc">Lista vacía</string>
+
+    <!-- Fragmento Detalle -->
+    <string name="detail_label">Detalle de tarea</string>
+    <string name="detail_title_section">Nueva tarea</string>
+    <string name="task_title_hint">Título de la tarea *</string>
+    <string name="task_description_hint">Descripción (opcional)</string>
+    <string name="priority_label">Prioridad</string>
+    <string name="reminder_label">Activar recordatorio</string>
+    <string name="no_time_selected">Sin hora seleccionada</string>
+    <string name="pick_time">Elegir hora</string>
+    <string name="save_task">Guardar tarea</string>
+
+    <!-- Fragmento Configuración -->
+    <string name="settings_profile">Perfil</string>
+    <string name="settings_appearance">Apariencia</string>
+    <string name="settings_sort">Ordenar tareas</string>
+    <string name="settings_stats">Estadísticas</string>
+    <string name="your_name_hint">Tu nombre</string>
+    <string name="save_name">Guardar nombre</string>
+    <string name="dark_theme_label">Tema oscuro</string>
+    <string name="sort_by_date">Por fecha de creación</string>
+    <string name="sort_by_priority">Por prioridad</string>
+    <string name="sort_by_title">Por título (A–Z)</string>
+    <string name="reminders_sent_zero">Recordatorios programados: 0</string>
+
+    <!-- Item tarea -->
+    <string name="delete_task">Eliminar tarea</string>
+    <string name="reminder_icon_desc">Tiene recordatorio</string>
+
+    <!-- Notificaciones -->
+    <string name="notification_channel_id">taskmaster_reminders</string>
+    <string name="notification_channel_name">Recordatorios de tareas</string>
+    <string name="notification_channel_desc">Notificaciones de recordatorios de tareas pendientes</string>
+    <string name="notification_title">Recordatorio de tarea</string>
+</resources>

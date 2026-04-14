@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    item_task.xml
+    Ítem individual del RecyclerView de tareas.
+    Contiene:
+    - Checkbox de completado
+    - Título y descripción
+    - Chip de prioridad (Baja/Media/Alta)
+    - Icono de recordatorio + hora
+    - Botón eliminar
+-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Checkbox de completado -->
+        <CheckBox
+            android:id="@+id/checkboxCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTaskTitle"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Título de la tarea -->
+        <TextView
+            android:id="@+id/tvTaskTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@+id/checkboxCompleted"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Entregar taller 3" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/tvTaskDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toEndOf="@+id/checkboxCompleted"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintTop_toBottomOf="@+id/tvTaskTitle"
+            tools:text="Completar los layouts XML del proyecto" />
+
+        <!-- Fila inferior: prioridad + recordatorio -->
+        <LinearLayout
+            android:id="@+id/rowMeta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/checkboxCompleted"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintTop_toBottomOf="@+id/tvTaskDescription">
+
+            <!-- Chip de prioridad -->
+            <TextView
+                android:id="@+id/chipPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="★ Alta"
+                tools:textColor="@color/priority_high" />
+
+            <!-- Icono de recordatorio -->
+            <ImageView
+                android:id="@+id/ivReminderIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_schedule"
+                android:contentDescription="@string/reminder_icon_desc"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- Hora del recordatorio -->
+            <TextView
+                android:id="@+id/tvReminderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginStart="3dp"
+                android:visibility="gone"
+                tools:text="09:30"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <!-- Botón eliminar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:icon="@drawable/ic_delete"
+            app:iconSize="20dp"
+            app:iconTint="?attr/colorError"
+            app:iconPadding="0dp"
+            android:contentDescription="@string/delete_task"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
