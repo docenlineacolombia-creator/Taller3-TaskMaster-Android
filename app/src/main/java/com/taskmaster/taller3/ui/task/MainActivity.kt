@@ -28,21 +28,24 @@ class MainActivity : AppCompatActivity() {
 
     // Launcher para solicitar permiso de notificaciones (Android 13+)
     private val requestNotificationPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
             // Si el usuario niega el permiso, los recordatorios no mostrarán notificación.
             // La app sigue funcionando con las demás características.
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Aplicar tema guardado en preferencias ANTES de setContentView
+        // IMPORTANTE: super.onCreate() debe llamarse PRIMERO.
+        // Aplicar el tema después de super pero antes de setContentView.
+        super.onCreate(savedInstanceState)
+
+        // Aplicar tema guardado en preferencias ANTES de inflar el layout
         val prefs = TaskPreferences(this)
         if (prefs.isDarkTheme()) {
             setTheme(R.style.Theme_TaskMaster_Dark)
-        } else {
-            setTheme(R.style.Theme_TaskMaster)
         }
+        // El tema claro (Theme.TaskMaster) ya está declarado en AndroidManifest,
+        // no es necesario setearlo explícitamente salvo para el tema oscuro.
 
-        super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         // Configurar la AppBar para que muestre el título del destino actual
-        // y el botón "Atrás" automáticamente
+        // y el botón "← Atrás" automáticamente
         val appBarConfig = AppBarConfiguration(
             setOf(R.id.taskListFragment) // Destinos de nivel superior (sin flecha atrás)
         )
