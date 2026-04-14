@@ -26,57 +26,44 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    // Launcher para solicitar permiso de notificaciones (Android 13+)
     private val requestNotificationPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
-            // Si el usuario niega el permiso, los recordatorios no mostrarán notificación.
-            // La app sigue funcionando con las demás características.
-        }
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // IMPORTANTE: super.onCreate() debe llamarse PRIMERO.
-        // Aplicar el tema después de super pero antes de setContentView.
         super.onCreate(savedInstanceState)
 
-        // Aplicar tema guardado en preferencias ANTES de inflar el layout
+        // Aplicar tema oscuro si está activado en preferencias
         val prefs = TaskPreferences(this)
         if (prefs.isDarkTheme()) {
             setTheme(R.style.Theme_TaskMaster_Dark)
         }
-        // El tema claro (Theme.TaskMaster) ya está declarado en AndroidManifest,
-        // no es necesario setearlo explícitamente salvo para el tema oscuro.
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Requerido porque el tema usa NoActionBar:
+        // la Toolbar del layout debe registrarse como ActionBar
+        setSupportActionBar(binding.toolbar)
 
         setupNavigation()
         requestNotificationPermissionIfNeeded()
     }
 
     private fun setupNavigation() {
-        // Obtener referencia al NavHostFragment desde el layout
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Configurar la AppBar para que muestre el título del destino actual
-        // y el botón "← Atrás" automáticamente
         val appBarConfig = AppBarConfiguration(
-            setOf(R.id.taskListFragment) // Destinos de nivel superior (sin flecha atrás)
+            setOf(R.id.taskListFragment)
         )
         setupActionBarWithNavController(navController, appBarConfig)
     }
 
-    /**
-     * Delega el botón "Atrás" de la AppBar al NavController.
-     */
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    /**
-     * Solicita el permiso POST_NOTIFICATIONS en Android 13+ (API 33+).
-     */
     private fun requestNotificationPermissionIfNeeded() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
